@@ -1,0 +1,17 @@
+<template>
+  <button
+    class="
+      bg-primary
+      hover:bg-primary-light
+      text-white
+      rounded-full
+      min-w-[5rem]
+      px-6
+      py-2
+      duration-500
+      cursor-pointer
+    "
+  >
+    <slot></slot>
+  </button>
+</template>
