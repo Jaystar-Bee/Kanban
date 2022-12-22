@@ -1,4 +1,5 @@
 <template>
+  <TheModal />
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
     <nav class="flex items-center dark:text-white">
       <div

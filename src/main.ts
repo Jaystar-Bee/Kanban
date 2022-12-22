@@ -1,21 +1,27 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-import App from './App.vue'
-import router from './router'
+import App from "./App.vue";
+import router from "./router";
 
 /**
  * general components import
  */
-import BaseButton from '@/components/common/BaseButton.vue'
+import BaseButton from "@/components/common/BaseButton.vue";
+import TheModal from "@/components/common/TheModal.vue";
+import TheDropdown from "@/components/common/TheDropdown.vue";
 
-import './assets/main.css'
+import "./assets/main.css";
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.component('BaseButton', BaseButton)
+app.use(createPinia());
+app.use(router);
+/**
+ * General Components
+ */
+app.component("BaseButton", BaseButton);
+app.component("TheModal", TheModal);
+app.component("TheDropdown", TheDropdown);
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+app.mount("#app");

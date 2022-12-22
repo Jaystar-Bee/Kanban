@@ -18,6 +18,7 @@
         w-[100%]
         h-[98%]
         overflow-y-hidden overflow-x-hidden
+        duration-500
         hover:overflow-y-auto hover:overflow-x-auto
       "
     >
@@ -27,10 +28,19 @@
         :column="column"
         class="min-w-[20rem] max-w-[24rem] text-primary-dark-4 font-bold"
       />
-      <div class="min-w-[20rem] max-w-[24rem] bg-primary-lighter rounded-md">
+      <div
+        class="
+          min-w-[20rem]
+          max-w-[24rem]
+          bg-primary-lighter
+          dark:bg-primary-dark-1
+          duration-500
+          rounded-md
+        "
+      >
         <p
           class="
-            text-primary-dark-3
+            text-primary-dark-4
             font-semibold
             flex
             items-center
@@ -69,7 +79,7 @@ const { allColumns } = columnStore;
   -ms-overflow-style: none;
 }
 .flow::-webkit-scrollbar-thumb {
-  background: #ccc;
+  background: rgb(136, 136, 136);
   border-radius: 2px;
 }
 </style>
