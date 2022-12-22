@@ -14,18 +14,22 @@ export const useTaskStore = defineStore("tasks", {
             {
               id: 1,
               title: "This is the first task to be done",
+              isDone: true,
             },
             {
               id: 2,
               title: "Add the color to button",
+              isDone: false,
             },
             {
               id: 3,
               title: "Design the modal box",
+              isDone: false,
             },
             {
               id: 4,
               title: "Get to push the cose when done",
+              isDone: false,
             },
           ],
         },
@@ -39,18 +43,22 @@ export const useTaskStore = defineStore("tasks", {
             {
               id: 1,
               title: "This is the first task to be done",
+              isDone: false,
             },
             {
               id: 2,
               title: "Add the color to button",
+              isDone: true,
             },
             {
               id: 3,
               title: "Design the modal box",
+              isDone: true,
             },
             {
               id: 4,
-              title: "Get to push the cose when done",
+              title: "Get to push the cose when Done",
+              isDone: true,
             },
           ],
         },
@@ -64,18 +72,22 @@ export const useTaskStore = defineStore("tasks", {
             {
               id: 1,
               title: "This is the first task to be done",
+              isDone: true,
             },
             {
               id: 2,
               title: "Add the color to button",
+              isDone: true,
             },
             {
               id: 3,
               title: "Design the modal box",
+              isDone: false,
             },
             {
               id: 4,
-              title: "Get to push the cose when done",
+              title: "Get to push the cose when is Done",
+              isDone: false,
             },
           ],
         },
@@ -89,28 +101,32 @@ export const useTaskStore = defineStore("tasks", {
             {
               id: 1,
               title: "This is the first task to be done",
+              isDone: false,
             },
             {
               id: 2,
               title: "Add the color to button",
+              isDone: false,
             },
             {
               id: 3,
               title: "Design the modal box",
+              isDone: true,
             },
             {
               id: 4,
               title: "Get to push the cose when done",
+              isDone: false,
             },
           ],
         },
       ],
     };
   },
-    getters: {
-        allTasks(state) {
-            return state.tasks
-      }
+  getters: {
+    allTasks(state) {
+      return state.tasks;
+    },
   },
   actions: {},
 });
