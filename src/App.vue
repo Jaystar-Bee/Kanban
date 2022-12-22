@@ -1,6 +1,6 @@
 <template>
   <TheHeader></TheHeader>
-  <router-view></router-view>
+  <router-view class="duration-500"></router-view>
 </template>
 
 <script setup lang="ts">
@@ -11,4 +11,8 @@ import TheHeader from "@/components/common/TheHeader.vue";
 </script>
 
 <style >
+body {
+  max-height: 100vh;
+  overflow: hidden;
+}
 </style>

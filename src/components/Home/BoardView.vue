@@ -2,10 +2,14 @@
   <aside
     class="
       w-[20%]
-      border-r border-primary-lighter
+      border-r
+      dark:border-primary-dark-3
+      border-primary-lighter
       h-screen
       text-primary-dark-4
       pt-10
+      dark:bg-primary-dark-1
+      duration-500
     "
   >
     <h2 class="pl-8 mb-8 font-semibold">ALL BOARDS ({{ numberOfBoard }})</h2>

@@ -1,6 +1,24 @@
 <template>
+  <div
+    v-if="!boardIsVisible"
+    class="fixed bottom-[6vh] z-10"
+    @click="changeBoardVisibility"
+  >
+    <div
+      class="
+        bg-primary
+        rounded-r-full
+        py-4
+        px-6
+        hover:bg-primary-light
+        duration-300
+      "
+    >
+      <img src="./../assets/images/open__eye.png" alt="eye" />
+    </div>
+  </div>
   <main class="flex">
-    <BoardView></BoardView>
+    <BoardView v-if="boardIsVisible" @close="changeBoardVisibility"></BoardView>
     <router-view></router-view>
   </main>
 </template>
@@ -10,5 +28,9 @@
  * Imports
  */
 import BoardView from "@/components/Home/BoardView.vue";
-import ColumnView from "@/components/Home/ColumnView.vue";
+import { useToggle } from "@/composables/toggle";
+import { provide } from "@vue/runtime-core";
+const [boardIsVisible, changeBoardVisibility] = useToggle(true);
+
+provide("changeBoardVisibility", changeBoardVisibility);
 </script>
