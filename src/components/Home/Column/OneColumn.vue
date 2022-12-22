@@ -22,7 +22,10 @@
         <h1 class="font-semibold text-black dark:text-white duration-500">
           {{ task.title }}
         </h1>
-        <p class="text-primary-dark-4">1 of 3 of subtasks</p>
+        <p class="text-primary-dark-4">
+          {{ completedSubtasks(task) }} of {{ numberOfSubtasks(task) }} of
+          subtasks
+        </p>
       </div>
     </div>
   </div>
@@ -34,17 +37,30 @@
 import { useTaskStore } from "@/stores/task";
 import { computed } from "vue";
 
+/**
+ * Tasks
+ */
 const taskStore = useTaskStore();
 const allTasks = taskStore.allTasks;
 const { column } = defineProps(["column"]);
-console.log(column);
 
 const tasks = computed(() => {
   //   let columnTasks = [];
   let columnTasks = allTasks.filter((task) => {
     return task.status === column.name;
   });
-  console.log(columnTasks);
   return columnTasks;
 });
+
+/**
+ * SubTasks
+ */
+const numberOfSubtasks = (task) => {
+  return task.subtasks.length;
+};
+const completedSubtasks = (task) => {
+  const taskIsCompleted = task.subtasks.filter((task) => task.isDone);
+  console.log(taskIsCompleted);
+  return taskIsCompleted.length;
+};
 </script>
