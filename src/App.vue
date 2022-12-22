@@ -12,7 +12,11 @@ import TheHeader from "@/components/common/TheHeader.vue";
 
 <style >
 body {
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+}
+
+#app {
+  height: 100%;
 }
 </style>

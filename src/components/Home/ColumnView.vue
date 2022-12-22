@@ -2,20 +2,45 @@
   <section
     class="
       bg-primary-lightest
-      min-h-screen
+      h-[100%]
+      w-[80%]
       p-6
       flex-1
       dark:bg-primary-dark dark:text-white
       duration-500
     "
   >
-    <div class="flex space-x-4">
+    <div
+      class="
+        flow
+        flex
+        space-x-4
+        w-[100%]
+        h-[98%]
+        overflow-y-hidden overflow-x-hidden
+        hover:overflow-y-auto hover:overflow-x-auto
+      "
+    >
       <OneColumn
         v-for="column in allColumns"
         :key="column.id"
         :column="column"
-        class="min-w-[20rem] text-primary-dark-4 font-bold"
+        class="min-w-[20rem] max-w-[24rem] text-primary-dark-4 font-bold"
       />
+      <div class="min-w-[20rem] max-w-[24rem] bg-primary-lighter rounded-md">
+        <p
+          class="
+            text-primary-dark-3
+            font-semibold
+            flex
+            items-center
+            justify-center
+            h-full
+          "
+        >
+          + New Column
+        </p>
+      </div>
     </div>
   </section>
 </template>
@@ -35,11 +60,16 @@ const { allColumns } = columnStore;
 </script>
 
 <style scoped>
-.overflow-x-scroll::-webkit-scrollbar-track {
-  background: transparent;
+.flow::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5rem;
 }
-.overflow-x-scroll::-webkit-scrollbar {
-  opacity: 0;
-  display: none;
+.flow {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.flow::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
 }
 </style>

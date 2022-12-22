@@ -1,23 +1,25 @@
 <template>
-  <div
-    v-if="!boardIsVisible"
-    class="fixed bottom-[6vh] z-10"
-    @click="changeBoardVisibility"
-  >
+  <teleport to="body">
     <div
-      class="
-        bg-primary
-        rounded-r-full
-        py-4
-        px-6
-        hover:bg-primary-light
-        duration-300
-      "
+      v-if="!boardIsVisible"
+      class="fixed bottom-[6vh] z-10"
+      @click="changeBoardVisibility"
     >
-      <img src="./../assets/images/open__eye.png" alt="eye" />
+      <div
+        class="
+          bg-primary
+          rounded-r-full
+          py-4
+          px-6
+          hover:bg-primary-light
+          duration-300
+        "
+      >
+        <img src="./../assets/images/open__eye.png" alt="eye" />
+      </div>
     </div>
-  </div>
-  <main class="flex">
+  </teleport>
+  <main class="flex h-[calc(100%-72px)]">
     <BoardView v-if="boardIsVisible" @close="changeBoardVisibility"></BoardView>
     <router-view></router-view>
   </main>

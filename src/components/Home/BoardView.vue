@@ -5,7 +5,7 @@
       border-r
       dark:border-primary-dark-3
       border-primary-lighter
-      h-screen
+      h-[100%]
       text-primary-dark-4
       pt-10
       dark:bg-primary-dark-1
