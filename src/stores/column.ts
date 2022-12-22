@@ -6,26 +6,26 @@ export const useColumnStore = defineStore("column", {
       columns: [
         {
           id: 1,
-          name: "Todo",
+          name: "todo",
           color: "#635FC7",
         },
         {
           id: 2,
-          name: "Doing",
-          color: "#635FC7",
+          name: "doing",
+          color: "#EA5555",
         },
         {
           id: 3,
-          name: "Done",
-          color: "#635FC7",
-        }
+          name: "done",
+          color: "#828FA3",
+        },
       ],
     };
   },
-    getters: {
-        columns(state)=> {
-            return state.columns
-      }
+  getters: {
+    allColumns(state) {
+      return state.columns;
+    },
   },
   actions: {},
 });
