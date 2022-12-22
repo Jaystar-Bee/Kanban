@@ -107,6 +107,10 @@ export const useTaskStore = defineStore("tasks", {
       ],
     };
   },
-  getters: {},
+    getters: {
+        allTasks(state) {
+            return state.tasks
+      }
+  },
   actions: {},
 });
