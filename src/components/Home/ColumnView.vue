@@ -35,19 +35,12 @@
           bg-primary-lighter
           dark:bg-primary-dark-1
           duration-500
+          text-primary-dark-4
+          hover:text-primary
           rounded-md
         "
       >
-        <p
-          class="
-            text-primary-dark-4
-            font-semibold
-            flex
-            items-center
-            justify-center
-            h-full
-          "
-        >
+        <p class="font-semibold flex items-center justify-center h-full">
           + New Column
         </p>
       </div>

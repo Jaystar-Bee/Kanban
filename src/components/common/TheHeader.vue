@@ -1,5 +1,6 @@
 <template>
-  <TheModal />
+  <!-- All Header Deign Starts -->
+
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
     <nav class="flex items-center dark:text-white">
       <div
@@ -33,7 +34,14 @@
             src="@/assets/images/menu__dots.png"
             alt="menu"
             class="cursor-pointer"
+            @click="toggleOptionState"
           />
+          <!-- Board Options -->
+          <TheModal light="true" v-if="optionState">
+            <template #dropdown>
+              <BoardOptions />
+            </template>
+          </TheModal>
         </div>
       </div>
     </nav>
@@ -43,9 +51,21 @@
 /**
  * Imports
  */
-import { computed } from "@vue/runtime-core";
+import BoardOptions from "@/components/Home/Board/BoardOptions.vue";
+import { computed, provide } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
+import { useToggle } from "@/composables/toggle";
 
+/**
+ * Toggle Board Edit
+ */
+const [optionState, toggleOptionState] = useToggle(false);
+
+provide("close", toggleOptionState);
+
+/**
+ * Using route for header heading
+ */
 const route = useRoute();
 const name = computed(() => {
   return route.params.name;

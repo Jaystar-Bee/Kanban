@@ -9,7 +9,7 @@
         py-3
         rounded-r-full
         w-[90%]
-        hover:bg-primary-light
+        hover:bg-primary-light hover:text-primary
         duration-500
         font-semibold
       "

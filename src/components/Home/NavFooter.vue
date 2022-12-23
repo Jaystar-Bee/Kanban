@@ -68,7 +68,6 @@ const htmlTag = document.querySelector("html");
 
 const themeExist = localStorage.getItem("theme");
 let isLight = ref(themeExist || "light");
-console.log(themeExist);
 !themeExist && localStorage.setItem("theme", isLight.value);
 htmlTag?.classList.add(isLight.value);
 

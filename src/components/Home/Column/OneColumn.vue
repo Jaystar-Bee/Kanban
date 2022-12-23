@@ -12,14 +12,17 @@
         v-if="task.status === column.name"
         class="
           bg-white
-          dark:bg-primary-dark-1 dark:text-white
+          dark:bg-primary-dark-1
           duration-500
           mt-4
           p-4
           rounded-md
+          text-black
+          dark:text-white
+          hover:text-primary
         "
       >
-        <h1 class="font-semibold text-black dark:text-white duration-500">
+        <h1 class="font-semibold duration-500">
           {{ task.title }}
         </h1>
         <p class="text-primary-dark-4">
@@ -60,7 +63,6 @@ const numberOfSubtasks = (task) => {
 };
 const completedSubtasks = (task) => {
   const taskIsCompleted = task.subtasks.filter((task) => task.isDone);
-  console.log(taskIsCompleted);
   return taskIsCompleted.length;
 };
 </script>
