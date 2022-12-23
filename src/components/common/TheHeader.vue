@@ -1,6 +1,6 @@
 <template>
+  <CreateBoard v-if="BoardIsVisible" :edit="true" />
   <!-- All Header Deign Starts -->
-
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
     <nav class="flex items-center dark:text-white">
       <div
@@ -52,6 +52,7 @@
  * Imports
  */
 import BoardOptions from "@/components/Home/Board/BoardOptions.vue";
+import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
 import { computed, provide } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useToggle } from "@/composables/toggle";
@@ -59,9 +60,22 @@ import { useToggle } from "@/composables/toggle";
 /**
  * Toggle Board Edit
  */
-const [optionState, toggleOptionState] = useToggle(false);
+const [optionState, toggleOptionState, ShowOptionState, HideOptionState] =
+  useToggle(false);
 
-provide("close", toggleOptionState);
+provide("closeLight", HideOptionState);
+/**
+ * Board Form Visibility
+ */
+const showEditForm = () => {
+  HideOptionState();
+  ShowBoard();
+};
+
+const [BoardIsVisible, ChangeBoardVisibility, ShowBoard, HideBoard] =
+  useToggle(false);
+provide("close", HideBoard);
+provide("showEdit", showEditForm);
 
 /**
  * Using route for header heading

@@ -5,5 +5,11 @@ export const useToggle = (init: boolean) => {
   const changeValue = () => {
     defaultValue.value = !defaultValue.value;
   };
-  return [defaultValue, changeValue];
+  const showValue = () => {
+    defaultValue.value = true;
+  };
+  const HideValue = () => {
+    defaultValue.value = false;
+  };
+  return [defaultValue, changeValue, showValue, HideValue];
 };

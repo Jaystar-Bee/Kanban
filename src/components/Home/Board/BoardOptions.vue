@@ -1,8 +1,14 @@
 <template>
   <div class="w-40">
     <p
-      class="cursor-pointer hover:bg-primary-lightest p-2 duration-300"
-      @click=""
+      class="
+        cursor-pointer
+        hover:bg-primary-lightest
+        p-2
+        duration-300
+        rounded-sm
+      "
+      @click="showEdit"
     >
       Edit
     </p>
@@ -12,6 +18,7 @@
         cursor-pointer
         hover:bg-primary-lightest
         p-2
+        rounded-sm
         duration-300
       "
       @click=""
@@ -20,3 +27,10 @@
     </p>
   </div>
 </template>
+
+
+<script setup>
+import { inject } from "@vue/runtime-core";
+
+const showEdit = inject(["showEdit"]);
+</script>

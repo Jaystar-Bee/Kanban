@@ -20,6 +20,7 @@
           text-black
           dark:text-white
           hover:text-primary
+          cursor-pointer
         "
       >
         <h1 class="font-semibold duration-500">

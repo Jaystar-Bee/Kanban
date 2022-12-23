@@ -13,6 +13,9 @@
         -translate-x-1/2 -translate-y-1/2
         z-40
         p-6
+        min-w-[20rem]
+        sm:min-w-[30rem]
+        md:min-w-[40rem]
       "
     >
       <slot name="center" />

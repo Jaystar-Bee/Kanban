@@ -38,6 +38,7 @@
           text-primary-dark-4
           hover:text-primary
           rounded-md
+          cursor-pointer
         "
       >
         <p class="font-semibold flex items-center justify-center h-full">

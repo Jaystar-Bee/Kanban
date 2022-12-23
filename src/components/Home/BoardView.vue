@@ -1,4 +1,5 @@
 <template>
+  <CreateBoard v-if="BoardIsVisible" />
   <aside
     class="
       w-[20%]
@@ -37,6 +38,7 @@
           cursor-pointer
           font-bold
         "
+        @click="ChangeBoardVisibility"
       >
         <img src="@/assets/images/board__image-primary.png" alt="" />
         <p class="font-semibold">+ Create New Board</p>
@@ -50,16 +52,27 @@
 /**
  * Imports
  */
-import NavLinks from "./NavLinks.vue";
-import NavFooter from "./NavFooter.vue";
-import { useBoardStore } from "@/stores/board";
-import { computed } from "vue";
-const boardStore = useBoardStore();
-const boards = boardStore.$state.boards;
+  import NavLinks from "./NavLinks.vue";
+  import NavFooter from "./NavFooter.vue";
+  import { useBoardStore } from "@/stores/board";
+  import { useToggle } from "@/composables/toggle";
+  import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
+  import { computed, provide } from "vue";
 
-const numberOfBoard = computed(() => {
-  return boards.length;
-});
+/**
+ * Get all boards
+ */
+  const boardStore = useBoardStore();
+  const boards = boardStore.$state.boards;
+
+  const numberOfBoard = computed(() => {
+    return boards.length;
+  });
+/**
+ * Board Form Visibility
+ */
+  const [BoardIsVisible, ChangeBoardVisibility] = useToggle(false);
+  provide("close", ChangeBoardVisibility);
 </script>
 
 <style scoped>

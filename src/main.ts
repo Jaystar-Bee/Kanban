@@ -10,6 +10,7 @@ import router from "./router";
 import BaseButton from "@/components/common/BaseButton.vue";
 import TheModal from "@/components/common/TheModal.vue";
 import TheDropdown from "@/components/common/TheDropdown.vue";
+import TheInput from "@/components/common/TheInput.vue";
 
 import "./assets/main.css";
 
@@ -23,5 +24,6 @@ app.use(router);
 app.component("BaseButton", BaseButton);
 app.component("TheModal", TheModal);
 app.component("TheDropdown", TheDropdown);
+app.component("TheInput", TheInput);
 
 app.mount("#app");
