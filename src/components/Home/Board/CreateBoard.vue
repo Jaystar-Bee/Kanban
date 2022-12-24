@@ -1,7 +1,11 @@
 <template>
   <TheModal>
     <template #center>
-      <form @submit.prevent="submitBoard" class="py-6" ref="form">
+      <form
+        @submit.prevent="submitBoard"
+        class="py-6 max-h-[90vh] overflow-y-auto flow"
+        ref="form"
+      >
         <p v-if="!allIsValid">
           All input must be equal or greater than 2 characters
         </p>
@@ -84,6 +88,7 @@ const { edit } = defineProps(["edit"]);
 /**
  * Adding Column
  */
+const form = ref(null);
 const allIsValid = ref(null);
 const title = reactive({
   value: "",
@@ -105,13 +110,13 @@ const submitBoard = () => {
   } else {
     //submit the board
     checkValues();
-    if (!allIsValid) {
+    if (!allIsValid.value) {
+      form.value.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     const newBoard = {
       id: new Date().toISOString(),
       title: title.value,
-      color: color.value,
     };
     console.log(newBoard);
     title.value = "";
@@ -141,7 +146,8 @@ const deleteColumn = (id) => {
 // Checking Values
 const checkValues = () => {
   if (title.value.length > 2) {
-    title.isValid = tru;
+    title.isValid = true;
+    allIsValid.value = true;
   } else {
     title.isValid = false;
     allIsValid.value = false;
@@ -150,6 +156,7 @@ const checkValues = () => {
   columns.forEach((column) => {
     if (column.value.length >= 2) {
       column.isValid = true;
+      allIsValid.value = true;
     } else {
       column.isValid = false;
       allIsValid.value = false;
