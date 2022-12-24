@@ -1,6 +1,7 @@
 <template>
   <textarea
     v-if="textarea"
+    rows="6"
     :name="textarea__name"
     :id="textarea__name"
     :placeholder="placeholder"
@@ -8,10 +9,15 @@
     @change="$emit('update:modelValue', $event.target.value)"
     class="
       w-full
-      p-6
-      placeholder:text-primary-dark-2
+      px-4
+      max-h-[6rem]
+      py-2
+      placeholder:text-primary-dark-4
+      border
+      outline-none
       rounded-md
-      border-primary-dark-3
+      border-primary-dark-4
+      dark:bg-primary-dark-1
     "
   >
   </textarea>
@@ -27,10 +33,11 @@
       px-4
       py-2
       placeholder:text-primary-dark-4
-      border-2
+      border
       outline-none
       rounded-md
       border-primary-dark-4
+      dark:bg-primary-dark-1
     "
   />
 </template>

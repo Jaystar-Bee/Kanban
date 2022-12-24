@@ -16,18 +16,9 @@
  */
 import { inject } from "vue";
 
-const closeLight = inject("closeLight");
 const close = inject("close");
 
-// let close;
-// const checkIfCloseLight = () => {
-//   if (inject("closeLight")) {
-//     close = inject("closeLight");
-//   } else {
-//     close = inject("close");
-//   }
-//   return inject("close");
-// };
-// checkIfCloseLight();
+defineEmits(["close"]);
+
 const { light } = defineProps(["light"]);
 </script>

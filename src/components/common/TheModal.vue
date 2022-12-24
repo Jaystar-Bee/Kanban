@@ -6,6 +6,7 @@
       class="
         bg-white
         rounded-lg
+        dark:bg-primary-dark-1 dark:text-white
         drop-shadow-sm
         fixed
         top-[50%]
@@ -23,7 +24,17 @@
   </teleport>
   <div
     v-if="dropdownSlot"
-    class="bg-white rounded-lg drop-shadow-lg absolute top-10 right-0 z-50 p-4"
+    class="
+      bg-white
+      dark:bg-primary-dark-1 dark:text-white
+      rounded-lg
+      drop-shadow-lg
+      absolute
+      top-10
+      right-0
+      z-50
+      p-4
+    "
   >
     <slot name="dropdown" />
   </div>

@@ -6,22 +6,57 @@
           {{ edit ? "Edit Board" : "Create New Board" }}
         </h1>
         <div>
-          <label for="title" class="mb-2">Title</label>
+          <label for="title" class="text-primary-dark-4 font-semibold"
+            >Title</label
+          >
           <TheInput
             :id="'title'"
             :placeholder="'title'"
             :type="'text'"
-            v-model="title.value"
+            v-model.trim="title.value"
+            class="mt-2"
+            :class="{ 'border-primary-red shake': title.isValid == false }"
           />
         </div>
-        <div class="mt-4">
-          <label for="color" class="mb-2">Color</label>
-          <input
-            type="color"
-            id="color"
-            v-model="color"
-            class="block w-1/2 rounded-md"
-          />
+        <div class="mt-8">
+          <label for="" class="text-primary-dark-4 font-semibold"
+            >Board Columns</label
+          >
+          <div
+            v-for="column in columns"
+            :key="column.id"
+            class="flex space-x-4 items-center mt-2"
+          >
+            <TheInput
+              :id="'column.id'"
+              :placeholder="'e.g Get text to use'"
+              :type="'text'"
+              class="mt-2"
+              v-model.trim="column.value"
+            />
+            <input type="color" v-model="column.color" />
+            <img
+              src="@/assets/images/close.png"
+              alt=""
+              class="h-4 cursor-pointer"
+              @click="deleteColumn(column.id)"
+            />
+          </div>
+          <div class="mt-4">
+            <button
+              class="
+                w-full
+                rounded-full
+                bg-primary-lighter
+                py-3
+                text-primary
+                font-semibold
+              "
+              @click="addNewColumn"
+            >
+              + Add New Column
+            </button>
+          </div>
         </div>
         <div class="mt-8">
           <BaseButton type="submit" class="w-full">{{
@@ -47,8 +82,17 @@ const title = reactive({
 const { edit } = defineProps(["edit"]);
 
 /**
- * Submiting the board creation or editing
+ * Adding Column
  */
+const columns = reactive([
+  {
+    id: 1,
+    value: "",
+    isValid: null,
+    color: "#671e1e",
+  },
+]);
+
 const submitBoard = () => {
   if (edit) {
     //edit the board
@@ -66,6 +110,26 @@ const submitBoard = () => {
     console.log(newBoard);
     title.value = "";
   }
+};
+
+/**
+ * Adding New Column and Delete Column
+ */
+
+const addNewColumn = () => {
+  const lastId = columns[columns.length - 1]?.id;
+  const newColumn = {
+    id: lastId ? lastId + 1 : 1,
+    value: "",
+    isValid: null,
+    color: "#671e1e",
+  };
+  columns.push(newColumn);
+};
+
+const deleteColumn = (id) => {
+  const columnId = columns.findIndex((column) => column.id === id);
+  columns.splice(columnId, 1);
 };
 
 const checkValues = () => {

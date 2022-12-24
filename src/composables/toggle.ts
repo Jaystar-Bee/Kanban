@@ -8,8 +8,8 @@ export const useToggle = (init: boolean) => {
   const showValue = () => {
     defaultValue.value = true;
   };
-  const HideValue = () => {
+  const hideValue = () => {
     defaultValue.value = false;
   };
-  return [defaultValue, changeValue, showValue, HideValue];
+  return [defaultValue, changeValue, showValue, hideValue];
 };

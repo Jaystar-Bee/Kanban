@@ -1,5 +1,7 @@
 <template>
   <CreateBoard v-if="BoardIsVisible" :edit="true" />
+
+  <CreateTask v-if="TaskIsVisible" />
   <!-- All Header Deign Starts -->
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
     <nav class="flex items-center dark:text-white">
@@ -29,7 +31,7 @@
           <h4 class="font-bold text-xl" v-if="name">{{ name }}</h4>
         </div>
         <div class="flex items-center space-x-20">
-          <BaseButton>+ Add New Task</BaseButton>
+          <BaseButton @click="showTask">+ Add New Task</BaseButton>
           <img
             src="@/assets/images/menu__dots.png"
             alt="menu"
@@ -53,6 +55,7 @@
  */
 import BoardOptions from "@/components/Home/Board/BoardOptions.vue";
 import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
+import CreateTask from "@/components/Home/Task/CreateTask.vue";
 import { computed, provide } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useToggle } from "@/composables/toggle";
@@ -63,19 +66,33 @@ import { useToggle } from "@/composables/toggle";
 const [optionState, toggleOptionState, ShowOptionState, HideOptionState] =
   useToggle(false);
 
-provide("closeLight", HideOptionState);
+// provide("close", HideOptionState);
 /**
  * Board Form Visibility
  */
 const showEditForm = () => {
   HideOptionState();
-  ShowBoard();
+  showBoard();
 };
 
-const [BoardIsVisible, ChangeBoardVisibility, ShowBoard, HideBoard] =
+const [BoardIsVisible, ChangeBoardVisibility, showBoard, hideBoard] =
   useToggle(false);
-provide("close", HideBoard);
+// provide("close", hideBoard || );
 provide("showEdit", showEditForm);
+
+/**
+ * Task Visibility Section
+ */
+
+const [TaskIsVisible, ChangeTaskVisibility, showTask, hideTask] =
+  useToggle(false);
+// provide("close", hideTask);
+const closeAllModal = () => {
+  HideOptionState();
+  hideBoard();
+  hideTask();
+};
+provide("close", closeAllModal);
 
 /**
  * Using route for header heading
