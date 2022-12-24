@@ -1,7 +1,10 @@
 <template>
   <TheModal>
     <template #center>
-      <form @submit.prevent="submitBoard" class="py-6">
+      <form @submit.prevent="submitBoard" class="py-6" ref="form">
+        <p v-if="!allIsValid">
+          All input must be equal or greater than 2 characters
+        </p>
         <h1 class="font-semibold mb-8">
           {{ edit ? "Edit Board" : "Create New Board" }}
         </h1>
@@ -32,9 +35,10 @@
               :placeholder="'e.g Get text to use'"
               :type="'text'"
               class="mt-2"
+              :class="{ 'border-primary-red shake': column.isValid == false }"
               v-model.trim="column.value"
             />
-            <input type="color" v-model="column.color" />
+            <input type="color" v-model="column.color" class="w-6" />
             <img
               src="@/assets/images/close.png"
               alt=""
@@ -44,6 +48,7 @@
           </div>
           <div class="mt-4">
             <button
+              type="button"
               class="
                 w-full
                 rounded-full
@@ -73,17 +78,18 @@
  * Imports
  */
 import { reactive, ref } from "vue";
-const color = ref("#671e1e");
-const title = reactive({
-  value: "",
-  isValid: null,
-});
 
 const { edit } = defineProps(["edit"]);
 
 /**
  * Adding Column
  */
+const allIsValid = ref(null);
+const title = reactive({
+  value: "",
+  isValid: null,
+});
+
 const columns = reactive([
   {
     id: 1,
@@ -99,7 +105,7 @@ const submitBoard = () => {
   } else {
     //submit the board
     checkValues();
-    if (title.isValid == false || title.isValid == null) {
+    if (!allIsValid) {
       return;
     }
     const newBoard = {
@@ -132,7 +138,22 @@ const deleteColumn = (id) => {
   columns.splice(columnId, 1);
 };
 
+// Checking Values
 const checkValues = () => {
-  title.value.length > 2 ? (title.isValid = true) : (title.isValid = false);
+  if (title.value.length > 2) {
+    title.isValid = tru;
+  } else {
+    title.isValid = false;
+    allIsValid.value = false;
+  }
+
+  columns.forEach((column) => {
+    if (column.value.length >= 2) {
+      column.isValid = true;
+    } else {
+      column.isValid = false;
+      allIsValid.value = false;
+    }
+  });
 };
 </script>
