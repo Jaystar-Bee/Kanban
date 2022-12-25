@@ -85,5 +85,12 @@ export const useBoardStore = defineStore("Board", {
     async createNewBoard(payload: any) {
       this.boards.push(payload);
     },
+    async editBoard(payload: any) {
+      const id = payload.id;
+      const boardIndex = this.boards.findIndex((board) => {
+        return board.id == id;
+      });
+      this.boards.splice(boardIndex, 1, payload.data);
+    },
   },
 });

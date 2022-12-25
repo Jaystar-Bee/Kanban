@@ -159,7 +159,7 @@ const description = reactive({
   value: "",
   isValid: null,
 });
-let subTasks = reactive([
+const subTasks = reactive([
   {
     id: 1,
     value: "",
@@ -227,10 +227,9 @@ const submitTask = () => {
     };
     console.log(newTask);
     // boardStore.createNewBoard(newBoard);
-    taskStore.createNewTask(newTask)
+    taskStore.createNewTask(newTask);
     title.value = "";
     description.value = "";
-    subTasks = [];
 
     close();
   }
