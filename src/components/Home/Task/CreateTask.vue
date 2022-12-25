@@ -117,7 +117,8 @@
  * Imports
  */
 import { inject, ref, reactive, computed } from "vue";
-import { useColumnStore } from "@/stores/column";
+// import { useColumnStore } from "@/stores/column";
+import { useBoardStore } from "@/stores/board";
 
 /**
  *  Checking Status to be selected
@@ -129,9 +130,9 @@ const selectedStatus = computed(() => {
 /**
  * Handling The Form Data
  */
-// all data assets
-const columnStore = useColumnStore();
-const columns = columnStore.allColumns;
+const boardStore = useBoardStore();
+const columns = boardStore.allColumns;
+
 const allIsValid = ref(null);
 const title = reactive({
   value: "",

@@ -114,12 +114,10 @@ const submitBoard = () => {
       form.value.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    let allColumns =[]
-    columns.forEach(column=> {
-      const newColumn = {
-        
-      }
-    })
+    let allColumns = [];
+    columns.forEach((column) => {
+      const newColumn = {};
+    });
     const newBoard = {
       id: new Date().toISOString(),
       title: title.value,

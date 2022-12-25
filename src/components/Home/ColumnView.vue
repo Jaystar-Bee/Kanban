@@ -53,14 +53,15 @@
 /**
  * Imports
  */
-import { useColumnStore } from "@/stores/column";
+import { useBoardStore } from "@/stores/board";
 import { useTaskStore } from "@/stores/task";
 import OneColumn from "@/components/Home/Column/OneColumn.vue";
 
-const columnStore = useColumnStore();
+const boardStore = useBoardStore();
 const taskStore = useTaskStore();
 
-const { allColumns } = columnStore;
+const allColumns = boardStore.allColumns;
+
 </script>
 
 <style scoped>

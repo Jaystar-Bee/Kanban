@@ -52,27 +52,27 @@
 /**
  * Imports
  */
-  import NavLinks from "./NavLinks.vue";
-  import NavFooter from "./NavFooter.vue";
-  import { useBoardStore } from "@/stores/board";
-  import { useToggle } from "@/composables/toggle";
-  import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
-  import { computed, provide } from "vue";
+import NavLinks from "@/components/Home/NavLinks.vue";
+import NavFooter from "@/components/Home/NavFooter.vue";
+import { useBoardStore } from "@/stores/board";
+import { useToggle } from "@/composables/toggle";
+import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
+import { computed, provide } from "vue";
 
 /**
  * Get all boards
  */
-  const boardStore = useBoardStore();
-  const boards = boardStore.$state.boards;
+const boardStore = useBoardStore();
+const boards = boardStore.$state.boards;
 
-  const numberOfBoard = computed(() => {
-    return boards.length;
-  });
+const numberOfBoard = computed(() => {
+  return boards.length;
+});
 /**
  * Board Form Visibility
  */
-  const [BoardIsVisible, ChangeBoardVisibility] = useToggle(false);
-  provide("close", ChangeBoardVisibility);
+const [BoardIsVisible, ChangeBoardVisibility] = useToggle(false);
+provide("close", ChangeBoardVisibility);
 </script>
 
 <style scoped>
