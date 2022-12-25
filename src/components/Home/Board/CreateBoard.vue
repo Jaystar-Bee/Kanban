@@ -6,12 +6,12 @@
         class="py-6 max-h-[90vh] overflow-y-auto flow"
         ref="form"
       >
-        <p v-if="!allIsValid">
-          All input must be equal or greater than 2 characters
-        </p>
         <h1 class="font-semibold mb-8">
           {{ edit ? "Edit Board" : "Create New Board" }}
         </h1>
+        <p v-if="allIsValid == false" class="text-primary-red mb-4">
+          All input must be equal or greater than 2 characters
+        </p>
         <div>
           <label for="title" class="text-primary-dark-4 font-semibold"
             >Title</label
@@ -81,10 +81,12 @@
 /**
  * Imports
  */
-import { reactive, ref } from "vue";
+import { inject, reactive, ref } from "vue";
+import { useBoardStore } from "@/stores/board";
 
 const { edit } = defineProps(["edit"]);
-
+const close = inject("close");
+const boardStore = useBoardStore();
 /**
  * Adding Column
  */
@@ -116,14 +118,23 @@ const submitBoard = () => {
     }
     let allColumns = [];
     columns.forEach((column) => {
-      const newColumn = {};
+      const newColumn = {
+        id: column.id,
+        value: column.value,
+        color: column.color,
+      };
+      allColumns.push(newColumn);
     });
     const newBoard = {
       id: new Date().toISOString(),
-      title: title.value,
+      name: title.value,
+      columns: allColumns,
     };
     console.log(newBoard);
+    boardStore.createNewBoard(newBoard);
     title.value = "";
+
+    close();
   }
 };
 

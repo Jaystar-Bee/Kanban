@@ -83,5 +83,10 @@ export const useBoardStore = defineStore("Board", {
       return currentBoard?.columns;
     },
   },
-  actions: {},
+  actions: {
+    async createNewBoard(payload: any) {
+      console.log(payload);
+      this.boards.push(payload);
+    },
+  },
 });
