@@ -128,5 +128,9 @@ export const useTaskStore = defineStore("tasks", {
       return state.tasks;
     },
   },
-  actions: {},
+  actions: {
+    async createNewTask(payload: any) {
+      this.tasks.push(payload);
+    },
+  },
 });

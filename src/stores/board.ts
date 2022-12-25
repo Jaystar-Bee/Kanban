@@ -75,8 +75,6 @@ export const useBoardStore = defineStore("Board", {
     allColumns(state) {
       const route = useRoute();
       const stateName = route.params.name;
-      console.log(stateName);
-      // console.log(state.stateName.columns);
       const currentBoard = state.boards.find((board) => {
         return board.name == stateName;
       });
@@ -85,7 +83,6 @@ export const useBoardStore = defineStore("Board", {
   },
   actions: {
     async createNewBoard(payload: any) {
-      console.log(payload);
       this.boards.push(payload);
     },
   },
