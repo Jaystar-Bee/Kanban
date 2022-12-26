@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="flex items-center space-x-2 mb-10">
-      <div class="w-4 h-4 rounded-full" :class="`bg-[${column.color}]`"></div>
+      <div
+        class="w-4 h-4 rounded-full"
+        :class="`bg-[${column.color.toString()}]`"
+      ></div>
       <h1 class="text-primary-dark-4 font-semibold">
         {{ column.name.toUpperCase() }}
       </h1>

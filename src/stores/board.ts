@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export const useBoardStore = defineStore("Board", {
   state: () => {
@@ -91,6 +91,14 @@ export const useBoardStore = defineStore("Board", {
         return board.id == id;
       });
       this.boards.splice(boardIndex, 1, payload.data);
+    },
+    async deleteBoard(payload: any) {
+      const router = useRouter();
+      const boardIndex = this.boards.findIndex((board) => {
+        return board.id == payload;
+      });
+      this.boards.splice(boardIndex, 1);
+      router.replace("/");
     },
   },
 });

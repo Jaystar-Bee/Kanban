@@ -1,6 +1,13 @@
 <template>
   <CreateBoard v-if="BoardIsVisible" :edit="true" />
-
+  <DeleteModal
+    v-if="DeleteIsVisible"
+    :title="'Delete the Board?'"
+    :content="content"
+    :id="$route.params.id"
+    @delete="deleteBoard"
+    @cancel="closeAllModal"
+  />
   <CreateTask v-if="TaskIsVisible" />
   <!-- All Header Deign Starts -->
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
@@ -56,7 +63,8 @@
 import BoardOptions from "@/components/Home/Board/BoardOptions.vue";
 import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
 import CreateTask from "@/components/Home/Task/CreateTask.vue";
-import { computed, provide } from "@vue/runtime-core";
+import { useBoardStore } from "@/stores/board";
+import { computed, provide, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useToggle } from "@/composables/toggle";
 
@@ -65,8 +73,20 @@ import { useToggle } from "@/composables/toggle";
  */
 const [optionState, toggleOptionState, ShowOptionState, HideOptionState] =
   useToggle(false);
+const route = useRoute();
+const boardStore = useBoardStore();
 
-// provide("close", HideOptionState);
+/**
+ * Using route for header heading
+ */
+const name = computed(() => {
+  return route.params.name;
+});
+
+const content = ref(
+  `Are you sure you want to delete the ‘${name.value}’ board? This action will remove all columns and tasks and cannot be reversed.`
+);
+
 /**
  * Board Form Visibility
  */
@@ -77,7 +97,6 @@ const showEditForm = () => {
 
 const [BoardIsVisible, ChangeBoardVisibility, showBoard, hideBoard] =
   useToggle(false);
-// provide("close", hideBoard || );
 provide("showEdit", showEditForm);
 
 /**
@@ -91,14 +110,22 @@ const closeAllModal = () => {
   HideOptionState();
   hideBoard();
   hideTask();
+  hideDelete();
 };
 provide("close", closeAllModal);
 
-/**
- * Using route for header heading
- */
-const route = useRoute();
-const name = computed(() => {
-  return route.params.name;
-});
+//Delete Visibility
+const showDeleteForm = () => {
+  HideOptionState();
+  showDelete();
+};
+const [DeleteIsVisible, ChangeDeleteVisibility, showDelete, hideDelete] =
+  useToggle(false);
+provide("showDelete", showDeleteForm);
+
+// Deleting Board
+
+const deleteBoard = (id: any) => {
+  boardStore.deleteBoard(id);
+};
 </script>

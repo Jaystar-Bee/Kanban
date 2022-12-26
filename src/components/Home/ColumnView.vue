@@ -72,7 +72,6 @@ let allColumns;
 onBeforeMount(() => {
   allColumns = boardStore.allColumns;
   allTasks = taskStore.allTasks;
-  console.log(allColumns);
 });
 onBeforeUpdate(() => {
   allColumns = boardStore.allColumns;

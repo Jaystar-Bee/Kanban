@@ -6,6 +6,7 @@
         hover:bg-primary-lightest
         p-2
         duration-300
+        dark:hover:bg-primary-dark-2
         rounded-sm
       "
       @click="showEdit"
@@ -20,8 +21,9 @@
         p-2
         rounded-sm
         duration-300
+        dark:hover:bg-primary-dark-2
       "
-      @click=""
+      @click="showDelete"
     >
       Delete
     </p>
@@ -32,5 +34,6 @@
 <script setup>
 import { inject } from "@vue/runtime-core";
 
-const showEdit = inject(["showEdit"]);
+const showEdit = inject("showEdit");
+const showDelete = inject("showDelete");
 </script>
