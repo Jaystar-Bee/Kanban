@@ -38,20 +38,18 @@
 /**
  * Imports
  */
-import { useTaskStore } from "@/stores/task";
+// import { useTaskStore } from "@/stores/task";
 import { computed } from "vue";
 
 /**
  * Tasks
  */
-const taskStore = useTaskStore();
-const allTasks = taskStore.allTasks;
-const { column } = defineProps(["column"]);
+
+const { allTasks, column } = defineProps(["allTasks", "column"]);
 
 const tasks = computed(() => {
-  //   let columnTasks = [];
   let columnTasks = allTasks.filter((task) => {
-    return task.status === column.name;
+    return task.status.toLowerCase() === column.name.toLowerCase();
   });
   return columnTasks;
 });

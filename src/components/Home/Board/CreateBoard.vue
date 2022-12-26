@@ -130,6 +130,7 @@ const setEditData = () => {
   }
 };
 setEditData();
+
 const handleData = () => {
   checkValues();
   if (!allIsValid.value) {
@@ -140,7 +141,7 @@ const handleData = () => {
   columns.forEach((column) => {
     const newColumn = {
       id: column.id,
-      value: column.value,
+      name: column.value,
       color: column.color,
     };
     allColumns.push(newColumn);

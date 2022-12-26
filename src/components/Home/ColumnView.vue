@@ -25,6 +25,7 @@
       <OneColumn
         v-for="column in allColumns"
         :key="column.id"
+        :allTasks="allTasks"
         :column="column"
         class="min-w-[20rem] max-w-[24rem] text-primary-dark-4 font-bold"
       />
@@ -56,12 +57,27 @@
 import { useBoardStore } from "@/stores/board";
 import { useTaskStore } from "@/stores/task";
 import OneColumn from "@/components/Home/Column/OneColumn.vue";
+import {
+  onMounted,
+  onBeforeMount,
+  onBeforeUpdate,
+  onActivated,
+} from "@vue/runtime-core";
 
 const boardStore = useBoardStore();
 const taskStore = useTaskStore();
+let allTasks;
+let allColumns;
 
-const allColumns = boardStore.allColumns;
-
+onBeforeMount(() => {
+  allColumns = boardStore.allColumns;
+  allTasks = taskStore.allTasks;
+  console.log(allColumns);
+});
+onBeforeUpdate(() => {
+  allColumns = boardStore.allColumns;
+  allTasks = taskStore.allTasks;
+});
 </script>
 
 <style scoped>

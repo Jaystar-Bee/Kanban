@@ -32,17 +32,17 @@ export const useBoardStore = defineStore("Board", {
           columns: [
             {
               id: 1,
-              name: "todo",
+              name: "to",
               color: "#635FC7",
             },
             {
               id: 2,
-              name: "doing",
+              name: "doin",
               color: "#EA5555",
             },
             {
               id: 3,
-              name: "done",
+              name: "don",
               color: "#828FA3",
             },
           ],
