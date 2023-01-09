@@ -158,6 +158,7 @@ const submitBoard = () => {
   if (edit) {
     //edit the board
     const newBoard = handleData();
+    delete newBoard.id;
     console.log(newBoard);
     boardStore.editBoard({ data: newBoard, id: route.params.id });
     close();

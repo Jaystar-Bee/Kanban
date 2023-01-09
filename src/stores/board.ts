@@ -347,10 +347,16 @@ export const useBoardStore = defineStore("Board", {
     },
     async editBoard(payload: any) {
       const id = payload.id;
+      const data = payload.data;
+
       const boardIndex = this.boards.findIndex((board) => {
         return board.id == id;
       });
-      this.boards.splice(boardIndex, 1, payload.data);
+      const updatedBoard = { ...this.boards[boardIndex] };
+      this.boards.splice(boardIndex, 1, {
+        ...updatedBoard,
+        ...data,
+      });
     },
     deleteBoard(payload: any) {
       const boardIndex = this.boards.findIndex((board) => {

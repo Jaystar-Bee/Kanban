@@ -1,4 +1,5 @@
 <template>
+  <CreateBoard v-if="BoardIsVisible" :edit="true" />
   <section
     class="
       bg-primary-lightest
@@ -41,6 +42,7 @@
           rounded-md
           cursor-pointer
         "
+        @click="showBoard"
       >
         <p class="font-semibold flex items-center justify-center h-full">
           + New Column
@@ -56,20 +58,26 @@
  */
 import { useBoardStore } from "@/stores/board";
 import { useTaskStore } from "@/stores/task";
+import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
 import OneColumn from "@/components/Home/Column/OneColumn.vue";
 import {
   onMounted,
   onBeforeMount,
   onBeforeUpdate,
   onActivated,
+  provide,
 } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
+import { useToggle } from "@/composables/toggle";
 
 const route = useRoute();
 const boardStore = useBoardStore();
 const taskStore = useTaskStore();
 let allTasks;
 let allColumns;
+
+const [BoardIsVisible, _, showBoard, hideBoard] = useToggle(false);
+provide("close", hideBoard);
 
 onBeforeMount(() => {
   boardStore.setCurrentBoard(route.params.id);
