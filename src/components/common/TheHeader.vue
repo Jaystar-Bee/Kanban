@@ -38,7 +38,12 @@
           <h4 class="font-bold text-xl" v-if="name">{{ name }}</h4>
         </div>
         <div class="flex items-center space-x-20">
-          <BaseButton @click="showTask">+ Add New Task</BaseButton>
+          <BaseButton
+            @click="showTask"
+            :disabled="$route.path == '/'"
+            :class="{ 'cursor-not-allowed opacity-20': $route.path == '/' }"
+            >+ Add New Task</BaseButton
+          >
           <img
             src="@/assets/images/menu__dots.png"
             alt="menu"
@@ -65,16 +70,19 @@ import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
 import CreateTask from "@/components/Home/Task/CreateTask.vue";
 import { useBoardStore } from "@/stores/board";
 import { computed, provide, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useToggle } from "@/composables/toggle";
+// import router from "@/router";
 
 /**
  * Toggle Board Edit
  */
 const [optionState, toggleOptionState, ShowOptionState, HideOptionState] =
   useToggle(false);
+const router = useRouter();
 const route = useRoute();
 const boardStore = useBoardStore();
+console.log(route.path);
 
 /**
  * Using route for header heading
@@ -119,13 +127,18 @@ const showDeleteForm = () => {
   HideOptionState();
   showDelete();
 };
-const [DeleteIsVisible, ChangeDeleteVisibility, showDelete, hideDelete] =
-  useToggle(false);
+const [DeleteIsVisible, _, showDelete, hideDelete] = useToggle(false);
 provide("showDelete", showDeleteForm);
 
 // Deleting Board
 
-const deleteBoard = (id: any) => {
-  boardStore.deleteBoard(id);
+const deleteBoard = async (id: any) => {
+  try {
+    await boardStore.deleteBoard(id);
+    hideDelete();
+    router.push("/");
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>

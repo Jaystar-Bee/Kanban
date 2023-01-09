@@ -63,18 +63,22 @@ import {
   onBeforeUpdate,
   onActivated,
 } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
 const boardStore = useBoardStore();
 const taskStore = useTaskStore();
 let allTasks;
 let allColumns;
 
 onBeforeMount(() => {
+  boardStore.setCurrentBoard(route.params.id);
   allColumns = boardStore.allColumns;
   allTasks = taskStore.allTasks;
 });
 onBeforeUpdate(() => {
-  allColumns = boardStore.allColumns;
+  boardStore.setCurrentBoard(route.params.id);
+  allColumns = boardStore.gettingCurrentColumn;
   allTasks = taskStore.allTasks;
 });
 </script>
