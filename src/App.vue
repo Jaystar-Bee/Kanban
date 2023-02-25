@@ -7,7 +7,29 @@
 /**
  * Imports
  */
+import { onMounted, ref } from "vue";
 import TheHeader from "@/components/common/TheHeader.vue";
+import { useUserStore } from "@/stores/user";
+import { toast } from "vue3-toastify";
+
+/**
+ * Variables
+ */
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.autoLogout();
+});
+
+/**
+ * Theme
+ */
+const htmlTag = document.querySelector("html");
+
+const themeExist = localStorage.getItem("theme");
+let isLight = ref(themeExist || "light");
+!themeExist && localStorage.setItem("theme", isLight.value);
+htmlTag?.classList.add(isLight.value);
 </script>
 
 <style >

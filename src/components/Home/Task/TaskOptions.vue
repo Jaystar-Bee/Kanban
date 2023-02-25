@@ -1,5 +1,5 @@
 <template>
-  <div class="w-40">
+  <div class="w-36">
     <p
       class="
         cursor-pointer
@@ -11,7 +11,7 @@
       "
       @click="showEdit"
     >
-      Edit
+      Edit Task
     </p>
     <p
       class="
@@ -25,7 +25,7 @@
       "
       @click="showDelete"
     >
-      Delete
+      Delete Task
     </p>
   </div>
 </template>

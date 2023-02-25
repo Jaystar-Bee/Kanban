@@ -6,12 +6,12 @@
         class="py-6 max-h-[90vh] overflow-y-auto flow"
         ref="form"
       >
-        <p v-if="!allIsValid">
-          All input must be equal or greater than 2 characters
-        </p>
         <h1 class="font-semibold mb-8">
           {{ edit ? "Edit Board" : "Create New Board" }}
         </h1>
+        <p v-if="allIsValid == false" class="text-primary-red mb-4">
+          All input must be equal or greater than 2 characters
+        </p>
         <div>
           <label for="title" class="text-primary-dark-4 font-semibold"
             >Title</label
@@ -53,14 +53,7 @@
           <div class="mt-4">
             <button
               type="button"
-              class="
-                w-full
-                rounded-full
-                bg-primary-lighter
-                py-3
-                text-primary
-                font-semibold
-              "
+              class="w-full rounded-full bg-primary-lighter py-3 text-primary font-semibold"
               @click="addNewColumn"
             >
               + Add New Column
@@ -81,13 +74,20 @@
 /**
  * Imports
  */
-import { reactive, ref } from "vue";
+import { inject, reactive, ref } from "vue";
+import { useRoute } from "vue-router";
+import { useBoardStore } from "@/stores/board";
+import { toast } from "vue3-toastify";
 
 const { edit } = defineProps(["edit"]);
+const route = useRoute();
+const close = inject("close");
+const boardStore = useBoardStore();
 
 /**
  * Adding Column
  */
+const boardColumns = boardStore.allColumns;
 const form = ref(null);
 const allIsValid = ref(null);
 const title = reactive({
@@ -95,7 +95,7 @@ const title = reactive({
   isValid: null,
 });
 
-const columns = reactive([
+let columns = reactive([
   {
     id: 1,
     value: "",
@@ -103,27 +103,71 @@ const columns = reactive([
     color: "#671e1e",
   },
 ]);
+//Setting Edit Board data If edit is true
 
-const submitBoard = () => {
+const setEditData = () => {
+  if (edit) {
+    const boardName = route.params.name;
+    title.value = boardName;
+    let newColumns = [];
+    boardColumns?.forEach((column) => {
+      const newCol = {
+        id: column.id,
+        value: column.name,
+        isValid: true,
+        color: column.color,
+      };
+      newColumns.push(newCol);
+    });
+
+    columns = reactive(newColumns);
+  }
+};
+setEditData();
+
+const handleData = () => {
+  checkValues();
+  if (!allIsValid.value) {
+    form.value.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  let allColumns = [];
+  columns.forEach((column) => {
+    const newColumn = {
+      // id: column.id,
+      name: column.value,
+      color: column.color,
+    };
+    allColumns.push(newColumn);
+  });
+  const newBoard = {
+    // id: new Date().toISOString(),
+    name: title.value,
+    columns: allColumns,
+  };
+  return newBoard;
+};
+
+const submitBoard = async () => {
   if (edit) {
     //edit the board
+    const newBoard = handleData();
+    delete newBoard.id;
+    console.log(newBoard);
+    boardStore.editBoard({ data: newBoard, id: route.params.id });
+    close();
   } else {
     //submit the board
-    checkValues();
-    if (!allIsValid.value) {
-      form.value.scrollTo({ top: 0, behavior: "smooth" });
-      return;
+    try {
+      const newBoard = handleData();
+      await boardStore.createNewBoard(newBoard);
+      toast.success("Board added successfully!");
+      close();
+    } catch (error) {
+      toast.error(error);
+      title.value = "";
+      close();
     }
-    let allColumns = [];
-    columns.forEach((column) => {
-      const newColumn = {};
-    });
-    const newBoard = {
-      id: new Date().toISOString(),
-      title: title.value,
-    };
-    console.log(newBoard);
-    title.value = "";
   }
 };
 
@@ -134,7 +178,7 @@ const submitBoard = () => {
 const addNewColumn = () => {
   const lastId = columns[columns.length - 1]?.id;
   const newColumn = {
-    id: lastId ? lastId + 1 : 1,
+    id: lastId && typeof lastId !== "string" ? lastId + 1 : 1,
     value: "",
     isValid: null,
     color: "#671e1e",
