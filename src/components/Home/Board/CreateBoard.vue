@@ -53,14 +53,7 @@
           <div class="mt-4">
             <button
               type="button"
-              class="
-                w-full
-                rounded-full
-                bg-primary-lighter
-                py-3
-                text-primary
-                font-semibold
-              "
+              class="w-full rounded-full bg-primary-lighter py-3 text-primary font-semibold"
               @click="addNewColumn"
             >
               + Add New Column
@@ -84,6 +77,7 @@
 import { inject, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useBoardStore } from "@/stores/board";
+import { toast } from "vue3-toastify";
 
 const { edit } = defineProps(["edit"]);
 const route = useRoute();
@@ -116,7 +110,7 @@ const setEditData = () => {
     const boardName = route.params.name;
     title.value = boardName;
     let newColumns = [];
-    boardColumns.forEach((column) => {
+    boardColumns?.forEach((column) => {
       const newCol = {
         id: column.id,
         value: column.name,
@@ -140,21 +134,21 @@ const handleData = () => {
   let allColumns = [];
   columns.forEach((column) => {
     const newColumn = {
-      id: column.id,
+      // id: column.id,
       name: column.value,
       color: column.color,
     };
     allColumns.push(newColumn);
   });
   const newBoard = {
-    id: new Date().toISOString(),
+    // id: new Date().toISOString(),
     name: title.value,
     columns: allColumns,
   };
   return newBoard;
 };
 
-const submitBoard = () => {
+const submitBoard = async () => {
   if (edit) {
     //edit the board
     const newBoard = handleData();
@@ -164,11 +158,16 @@ const submitBoard = () => {
     close();
   } else {
     //submit the board
-    const newBoard = handleData();
-    boardStore.createNewBoard(newBoard);
-    title.value = "";
-
-    close();
+    try {
+      const newBoard = handleData();
+      await boardStore.createNewBoard(newBoard);
+      toast.success("Board added successfully!");
+      close();
+    } catch (error) {
+      toast.error(error);
+      title.value = "";
+      close();
+    }
   }
 };
 

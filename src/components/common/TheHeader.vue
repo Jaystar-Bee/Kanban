@@ -3,7 +3,8 @@
   <DeleteModal
     v-if="DeleteIsVisible"
     :title="'Delete the Board?'"
-    :content="content"
+    :content="`Are you sure you want to delete the ‘${$route.params.name}’ board? 
+    This action will remove all columns and tasks and cannot be reversed.`"
     :id="$route.params.id"
     @delete="deleteBoard"
     @cancel="closeAllModal"
@@ -13,17 +14,7 @@
   <header class="bg-white dark:bg-primary-dark-1 duration-500">
     <nav class="flex items-center dark:text-white">
       <div
-        class="
-          flex
-          items-center
-          space-x-10
-          w-[20%]
-          border-r border-primary-lighter
-          dark:border-primary-dark-3
-          duration-500
-          py-4
-          px-8
-        "
+        class="flex items-center space-x-10 w-[20%] border-r border-primary-lighter dark:border-primary-dark-3 duration-500 py-4 px-8"
       >
         <img
           src="@/assets/images/logo.png"
@@ -37,7 +28,8 @@
         <div>
           <h4 class="font-bold text-xl" v-if="name">{{ name }}</h4>
         </div>
-        <div class="flex items-center space-x-20">
+        <div v-if="loggedIn" class="flex items-center space-x-16">
+          <p class="text-primary-red font-semibold">Logout</p>
           <BaseButton
             @click="showTask"
             :disabled="$route.path == '/'"
@@ -47,6 +39,7 @@
           <img
             src="@/assets/images/menu__dots.png"
             alt="menu"
+            :class="{ 'cursor-not-allowed hidden': $route.path == '/' }"
             class="cursor-pointer"
             @click="toggleOptionState"
           />
@@ -69,6 +62,7 @@ import BoardOptions from "@/components/Home/Board/BoardOptions.vue";
 import CreateBoard from "@/components/Home/Board/CreateBoard.vue";
 import CreateTask from "@/components/Home/Task/CreateTask.vue";
 import { useBoardStore } from "@/stores/board";
+import { useUserStore } from "@/stores/user";
 import { computed, provide, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useToggle } from "@/composables/toggle";
@@ -82,18 +76,17 @@ const [optionState, toggleOptionState, ShowOptionState, HideOptionState] =
 const router = useRouter();
 const route = useRoute();
 const boardStore = useBoardStore();
-console.log(route.path);
+const userStore = useUserStore();
 
 /**
  * Using route for header heading
  */
-const name = computed(() => {
-  return route.params.name;
+const currentBoard = computed(() => {
+  return boardStore.currentBoard;
 });
-
-const content = ref(
-  `Are you sure you want to delete the ‘${name.value}’ board? This action will remove all columns and tasks and cannot be reversed.`
-);
+const loggedIn = computed(() => {
+  return userStore.isAuthenticated;
+});
 
 /**
  * Board Form Visibility

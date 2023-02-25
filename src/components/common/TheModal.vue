@@ -12,7 +12,7 @@
         top-[50%]
         left-[50%]
         -translate-x-1/2 -translate-y-1/2
-        z-40
+        z-30
         p-6
         min-w-[20rem]
         sm:min-w-[30rem]
@@ -32,7 +32,7 @@
       absolute
       top-10
       right-0
-      z-50
+      z-[100]
       p-4
     "
   >

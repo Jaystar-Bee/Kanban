@@ -121,16 +121,25 @@ export const useTaskStore = defineStore("tasks", {
           ],
         },
       ],
+      currentTask: null,
     };
   },
   getters: {
     allTasks(state) {
       return state.tasks;
     },
+    getCurrentTask(state) {
+      return state.currentTask
+    }
   },
   actions: {
     async createNewTask(payload: any) {
       this.tasks.push(payload);
+    },
+    async setCurrentTask(payload: number) {
+      const task = this.tasks.find((task) => task.id == payload);
+      this.currentTask = task;
+      return task;
     },
   },
 });

@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import Vue3Toasity, { type ToastContainerOptions } from "vue3-toastify";
 
 import App from "./App.vue";
 import router from "./router";
@@ -14,10 +15,15 @@ import TheInput from "@/components/common/TheInput.vue";
 import DeleteModal from "@/components/common/DeleteModal.vue";
 
 import "./assets/main.css";
+import "vue3-toastify/dist/index.css";
 
 const app = createApp(App);
-
 app.use(createPinia());
+
+app.use(Vue3Toasity, {
+  autoClose: 2000,
+  closeOnClick: true,
+} as ToastContainerOptions);
 app.use(router);
 /**
  * General Components

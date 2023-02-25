@@ -12,7 +12,8 @@
             hover:bg-primary-red-light
             text-white
             duration-150
-            px-8
+            px-10
+            sm:px-20
             py-4
             rounded-full
           "
@@ -25,9 +26,11 @@
             bg-primary-lightest
             hover:bg-primary-lighter
             duration-150
-            px-8
+            px-10
+            sm:px-20
             py-4
             rounded-full
+            text-primary
           "
           @click="$emit('cancel')"
         >

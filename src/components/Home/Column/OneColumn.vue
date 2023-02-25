@@ -10,7 +10,13 @@
       </h1>
       <p class="font-semibold">({{ tasks.length }})</p>
     </div>
-    <div v-for="task in tasks" :key="task.id" :task="task">
+    <OneTask
+      v-for="task in tasks"
+      :key="task.id"
+      :task="task"
+      :column="column"
+    />
+    <!-- <div v-for="task in tasks" :key="task.id" :task="task">
       <div
         v-if="task.status === column.name"
         class="
@@ -34,7 +40,7 @@
           subtasks
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>
@@ -43,11 +49,7 @@
  */
 // import { useTaskStore } from "@/stores/task";
 import { computed } from "vue";
-
-/**
- * Tasks
- */
-
+import OneTask from "@/components/Home/Task/OneTask.vue";
 const { allTasks, column } = defineProps(["allTasks", "column"]);
 
 const tasks = computed(() => {
